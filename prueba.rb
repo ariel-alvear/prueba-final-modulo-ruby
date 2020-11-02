@@ -37,16 +37,15 @@ require 'json'
 results = api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
 photos_big_array = results['photos']
+filtered_url = []
 
-photos_position0_array = photos_big_array[0]
-
-photos_url_hash = {}
-
-photos_position0_array.each do |k, v|
-    photos_url_hash[v] if k == "img_src"
+(photos_big_array.length).times do |x|
+    photos_big_array[x].each do |k, v|
+        if k == 'img_src'
+            filtered_url.push(v)
+        end
+    end
 end
 
-puts photos_position0_array['img_src']
-
-
+print filtered_url
 
