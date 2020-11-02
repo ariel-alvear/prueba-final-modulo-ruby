@@ -26,31 +26,36 @@ def api_request(url)
     request["postman-token"] = 'ccff926c-07c3-4696-0da0-7a689690bd5e'
 
     response = http.request(request)
-    JSON.parse(response.read_body)
-end
-
-def make_url_array(array)
+    response_array = JSON.parse(response.read_body)
     filtered_url = []
-    (array.length).times do |x|
-        array[x].each do |k, v|
+    (response_array.length).times do |x|
+        response_array[x].each do |k, v|
             if k == 'img_src'
                 filtered_url.push(v)
             end
         end
     end
-    filtered_url
+    top_html = ["<html>","<head>", "</head>", "<body>", "<ul>" ]
+    
+
+
+
+
+    File.new("index.html", "w")
+    File.write('index.html', top_html.join("\n"))
+
+
+
+
+
+
 end
+
+
 
 require 'uri'
 require 'net/http'
 require 'openssl'
 require 'json'
-
-results = api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
-
-photos_big_array = results['photos']
-filtered_url = make_url_array(photos_big_array)
-
-puts filtered_url.sample(6)
 
 
