@@ -10,6 +10,7 @@ For additional support, please contact us. When contacting us, please tell us wh
 
 Account Email: ariel.alvear.l@gmail.com
 Account ID: 8c6f95e3-9bb2-4875-90f1-8db8d59fd0b7 
+"<img src=\"#{photo}\">\n"
 =end
 
 
@@ -25,9 +26,7 @@ def api_request(url)
     request["postman-token"] = 'ccff926c-07c3-4696-0da0-7a689690bd5e'
 
     response = http.request(request)
-    results = JSON.parse(response.read_body)
-
-    results
+    JSON.parse(response.read_body)
 end
 
 require 'uri'
@@ -35,4 +34,19 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-print api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
+results = api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
+
+photos_big_array = results['photos']
+
+photos_position0_array = photos_big_array[0]
+
+photos_url_hash = {}
+
+photos_position0_array.each do |k, v|
+    photos_url_hash[v] if k == "img_src"
+end
+
+puts photos_position0_array['img_src']
+
+
+
