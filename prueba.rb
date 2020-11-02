@@ -46,7 +46,7 @@ def build_web_page(url, photos = 5)
         final_html.push(top_html[x])
     end
     (middle_html.length).times do |y|
-        final_html.push("<li><img src=\"#{middle_html[y]}\"></li>\n")
+        final_html.push("<li><img src=\"#{middle_html[y]}\"></li>")
     end
     (bottom_html.length).times do |z|
         final_html.push(bottom_html[z])
