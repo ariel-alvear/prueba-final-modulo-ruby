@@ -29,6 +29,18 @@ def api_request(url)
     JSON.parse(response.read_body)
 end
 
+def make_url_array(array)
+    filtered_url = []
+    (array.length).times do |x|
+        array[x].each do |k, v|
+            if k == 'img_src'
+                filtered_url.push(v)
+            end
+        end
+    end
+    filtered_url
+end
+
 require 'uri'
 require 'net/http'
 require 'openssl'
@@ -37,15 +49,8 @@ require 'json'
 results = api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
 photos_big_array = results['photos']
-filtered_url = []
+filtered_url = make_url_array(photos_big_array)
 
-(photos_big_array.length).times do |x|
-    photos_big_array[x].each do |k, v|
-        if k == 'img_src'
-            filtered_url.push(v)
-        end
-    end
-end
+puts filtered_url
 
-print filtered_url
 
