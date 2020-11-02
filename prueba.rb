@@ -51,6 +51,6 @@ results = api_request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/
 photos_big_array = results['photos']
 filtered_url = make_url_array(photos_big_array)
 
-puts filtered_url
+puts filtered_url.sample(6)
 
 
