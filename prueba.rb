@@ -14,7 +14,7 @@ Account ID: 8c6f95e3-9bb2-4875-90f1-8db8d59fd0b7
 =end
 
 
-def api_request(url, photos)
+def build_web_page(url, photos = 5)
     url = URI(url)
 
     http = Net::HTTP.new(url.host, url.port)
@@ -27,6 +27,7 @@ def api_request(url, photos)
 
     response = http.request(request)
     response_array = JSON.parse(response.read_body)
+
     filtered_url = []
     (response_array.length).times do |x|
         response_array[x].each do |k, v|
@@ -35,25 +36,24 @@ def api_request(url, photos)
             end
         end
     end
+
     top_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
     middle_html = filtered_url(photos)
-
-    
-
-
+    final_html = []
+    (top_html.length).times do |x|
+        final_html.push(top_html[x])
+    end
+    (middle_html.length).times do |y|
+        final_html.push("<li><img src=\"#{middle_html[y]}\"></li>\n")
+    end
+    (bottom_html.length).times do |z|
+        final_html.push(bottom_html[z])
+    end
 
     File.new("index.html", "w")
-    File.write('index.html', top_html.join("\n"))
-
-
-
-
-
-
+    File.write('index.html', final_html.join("\n"))
 end
-
-
 
 require 'uri'
 require 'net/http'
