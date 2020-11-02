@@ -26,7 +26,8 @@ def build_web_page(url, photos = 5)
     request["postman-token"] = 'ccff926c-07c3-4696-0da0-7a689690bd5e'
 
     response = http.request(request)
-    response_array = JSON.parse(response.read_body)
+    response_array_raw = JSON.parse(response.read_body)
+    response_array = response_array_raw['photos']
 
     filtered_url = []
     (response_array.length).times do |x|
@@ -39,7 +40,7 @@ def build_web_page(url, photos = 5)
 
     top_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
-    middle_html = filtered_url(photos)
+    middle_html = filtered_url.sample(photos)
     final_html = []
     (top_html.length).times do |x|
         final_html.push(top_html[x])
@@ -59,5 +60,7 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 require 'json'
+
+build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
 
