@@ -1,19 +1,3 @@
-=begin
-Generate API Key
-Your API key for ariel.alvear.l@gmail.com is:
-
-icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL
-You can start using this key to make web service requests. Simply pass your key in the URL when making a web request. Here's an example:
-
-https://api.nasa.gov/planetary/apod?api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL
-For additional support, please contact us. When contacting us, please tell us what API you're accessing and provide the following account details so we can quickly find you:
-
-Account Email: ariel.alvear.l@gmail.com
-Account ID: 8c6f95e3-9bb2-4875-90f1-8db8d59fd0b7 
-"<img src=\"#{photo}\">\n"
-=end
-
-
 def build_web_page(url, photos = 5)
     url = URI(url)
 
@@ -55,6 +39,11 @@ def build_web_page(url, photos = 5)
     File.new("index.html", "w")
     File.write('index.html', final_html.join("\n"))
 end
+
+=begin
+Al método debemos darle como argumento 1 la url de la nasa a la que queremos hacer la request, y un número que será la cantidad de fotos que se mostrará.
+Ingresados esos argumentos, el programa genera un archivo index.html con fotos listadas en elementos <li>.
+=end
 
 require 'uri'
 require 'net/http'
