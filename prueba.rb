@@ -42,7 +42,8 @@ end
 
 =begin
 Al método debemos darle como argumento 1 la url de la nasa a la que queremos hacer la request, y un número que será la cantidad de fotos que se mostrará.
-Ingresados esos argumentos, el programa genera un archivo index.html con fotos listadas en elementos <li>.
+Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
+En esta URL hay 856 fotos.
 =end
 
 require 'uri'
@@ -50,6 +51,6 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
+build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 10)
 
 
