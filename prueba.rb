@@ -14,7 +14,7 @@ Account ID: 8c6f95e3-9bb2-4875-90f1-8db8d59fd0b7
 =end
 
 
-def api_request(url)
+def api_request(url, photos)
     url = URI(url)
 
     http = Net::HTTP.new(url.host, url.port)
@@ -35,9 +35,11 @@ def api_request(url)
             end
         end
     end
-    top_html = ["<html>","<head>", "</head>", "<body>", "<ul>" ]
-    
+    top_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
+    bottom_html = ["</ul>", "</body>", "</html>"]
+    middle_html = filtered_url(photos)
 
+    
 
 
 
