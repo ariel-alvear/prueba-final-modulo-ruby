@@ -31,7 +31,7 @@ def build_web_page(url, photos = 5)
     final_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
     middle_html = filtered_url.sample(photos)
-    (middle_html.length).times { |y| final_html.push("<li><img src=\"#{middle_html[y]}\"></li>")}
+    (middle_html.length).times { |y| final_html.push("\t<li><img src=\"#{middle_html[y]}\"></li>")}
     (bottom_html.length).times { |z| final_html.push(bottom_html[z]) }
 
     File.new("index.html", "w")
@@ -78,7 +78,7 @@ end
 
 
 
-build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 7)
+build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 5)
 
 
 photo_count("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
