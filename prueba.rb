@@ -1,4 +1,9 @@
 def build_web_page(url, photos = 5)
+    require 'uri'
+    require 'net/http'
+    require 'openssl'
+    require 'json'
+
     url = URI(url)
 
     http = Net::HTTP.new(url.host, url.port)
@@ -32,11 +37,8 @@ Ingresados esos argumentos, el programa genera un archivo index.html con la cant
 En esta URL hay 856 fotos.
 =end
 
-require 'uri'
-require 'net/http'
-require 'openssl'
-require 'json'
 
-build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 5)
+
+build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 3)
 
 
