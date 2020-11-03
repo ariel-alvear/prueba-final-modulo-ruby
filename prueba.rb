@@ -14,13 +14,7 @@ def build_web_page(url, photos = 5)
     response_array = response_array_raw['photos']
 
     filtered_url = []
-    (response_array.length).times do |x|
-        response_array[x].each do |k, v|
-            if k == 'img_src'
-                filtered_url.push(v)
-            end
-        end
-    end
+    (response_array.length).times { |x| response_array[x].each { |k, v| filtered_url.push(v) if k == 'img_src' } }
 
     final_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
@@ -43,6 +37,6 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 2)
+build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 5)
 
 
