@@ -1,3 +1,10 @@
+=begin
+Al método debemos darle como argumento 1 la url de la nasa a la que queremos hacer la request, y un número que será la cantidad de fotos que se mostrará.
+Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
+En esta URL hay 856 fotos.
+=end
+
+
 def build_web_page(url, photos = 5)
     require 'uri'
     require 'net/http'
@@ -31,6 +38,8 @@ def build_web_page(url, photos = 5)
     File.write('index.html', final_html.join("\n"))
 end
 
+#al siguiente método al darle como argumento la url de la api de la nasa, nos devuelve un hash con cada cámara y cantidad de fotos que fueron sacadas.
+
 def photo_count(url)
     require 'uri'
     require 'net/http'
@@ -52,16 +61,12 @@ def photo_count(url)
     response_array = response_array_raw['photos']
     filter_array = []
     (response_array.length).times do |x|
-        response_array[x].each do |k, v|
-            filter_array.push(v) if k == "camera"
-        end
+        response_array[x].each { |k, v| filter_array.push(v) if k == "camera" }
     end
 
     camera_array = []
     (filter_array.length).times do |x|
-        filter_array[x].each do |k, v|
-            camera_array.push(v) if k == "full_name"
-        end
+        filter_array[x].each { |k, v| camera_array.push(v) if k == "full_name" }
     end
 
     counts = Hash.new(0)
@@ -70,11 +75,7 @@ def photo_count(url)
     print counts
 end
 
-=begin
-Al método debemos darle como argumento 1 la url de la nasa a la que queremos hacer la request, y un número que será la cantidad de fotos que se mostrará.
-Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
-En esta URL hay 856 fotos.
-=end
+
 
 
 build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 7)
