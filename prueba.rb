@@ -1,8 +1,4 @@
-=begin
-Al método debemos darle como argumento 1 la url de la nasa a la que queremos hacer la request, y un número que será la cantidad de fotos que se mostrará.
-Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
-En esta URL hay 856 fotos.
-=end
+#A este método le agregamos una url de api y una api_key, las concatena y nos da la respuesta de una request.
 def concatenate_url_key(url, key)
     require 'uri'
     require 'net/http'
@@ -25,6 +21,12 @@ def concatenate_url_key(url, key)
     response_hash = JSON.parse(response.read_body)
     response_hash
 end
+
+=begin
+Al método debemos darle como argumento 1 la respuesta de la url de la nasa a la que queremos hicimos la request, y un número que será la cantidad de fotos que se mostrará.
+Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
+En esta URL hay 856 fotos.
+=end
 
 def build_web_page(hash, photos = 5)
  
