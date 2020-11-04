@@ -3,27 +3,32 @@ Al método debemos darle como argumento 1 la url de la nasa a la que queremos ha
 Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
 En esta URL hay 856 fotos.
 =end
-
-
-def build_web_page(url, photos = 5)
+def concatenate_url_key(url, key)
     require 'uri'
     require 'net/http'
     require 'openssl'
     require 'json'
+    url_with_key = url + key
+    url_with_key
 
-    url = URI(url)
+    url_api = URI(url_with_key)
 
-    http = Net::HTTP.new(url.host, url.port)
+    http = Net::HTTP.new(url_api.host, url_api.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    request = Net::HTTP::Get.new(url)
+    request = Net::HTTP::Get.new(url_api)
     request["cache-control"] = 'no-cache'
     request["postman-token"] = 'ccff926c-07c3-4696-0da0-7a689690bd5e'
 
     response = http.request(request)
-    response_array_raw = JSON.parse(response.read_body)
-    response_array = response_array_raw['photos']
+    response_hash = JSON.parse(response.read_body)
+    response_hash
+end
+
+def build_web_page(hash, photos = 5)
+ 
+    response_array = hash['photos']
 
     filtered_url = []
     (response_array.length).times { |x| response_array[x].each { |k, v| filtered_url.push(v) if k == 'img_src' } }
@@ -76,9 +81,9 @@ def photo_count(url)
 end
 
 
+response_hash = concatenate_url_key("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
-
-build_web_page("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL", 5)
+build_web_page(response_hash, 5)
 
 
 photo_count("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
