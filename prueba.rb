@@ -36,7 +36,7 @@ def build_web_page(hash, photos = 5)
     final_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
     middle_html = filtered_url.sample(photos)
-    (middle_html.length).times { |y| final_html.push("\t<li><img src=\"#{middle_html[y]}\"></li>")}
+    (middle_html.length).times { |y| final_html.push("\t<li><img src=\"#{middle_html[y]}\" width='700' height='500'></li>")}
     (bottom_html.length).times { |z| final_html.push(bottom_html[z]) }
 
     File.new("index.html", "w")
