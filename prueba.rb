@@ -24,9 +24,11 @@ end
 Al método debemos darle como argumento 1 la respuesta de la url de la nasa a la que queremos hicimos la request, y un número que será la cantidad de fotos al azar que se mostrará.
 Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
 En esta URL hay 856 fotos.
+
+Si bien la prueba no especificaba la cantidad de fotos, cree un método para hacer más amigable la revisión y creación de página web. En caso de que no se le asigne un 2do argumento al método build_web_page, se creará la página con el total de fotos de la api.
 =end
 
-def build_web_page(hash, photos = 5)
+def build_web_page(hash, photos = 856)
  
     response_array = hash['photos']
 
@@ -66,9 +68,10 @@ end
 
 response_hash = concatenate_url_key("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
-build_web_page(response_hash, 5)
+build_web_page(response_hash, 5) #la página se creará con 5 fotos.
 
 
 photo_count(response_hash)
+
 
 
