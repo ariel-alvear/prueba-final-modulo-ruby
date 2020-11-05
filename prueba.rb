@@ -21,23 +21,19 @@ def request(url, key)
 end
 
 =begin
-Al método debemos darle como argumento 1 la respuesta de la url de la nasa a la que queremos hicimos la request, y un número que será la cantidad de fotos al azar que se mostrará.
-Ingresados esos argumentos, el programa genera un archivo index.html con la cantidad de fotos aleatorias listadas en elementos <li>.
-En esta URL hay 856 fotos.
-
-Si bien la prueba no especificaba la cantidad de fotos, cree un método para hacer más amigable la revisión y creación de página web. En caso de que no se le asigne un 2do argumento al método build_web_page, se creará la página con el total de fotos de la api.
+Al método debemos darle como argumento 1 la respuesta de la url de la nasa a la que queremos hicimos la request y nos armará un index.html
 =end
 
-def build_web_page(hash, photos = 856)
+def build_web_page(hash)
  
     response_array = hash['photos']
 
-    filtered_url = []
-    (response_array.length).times { |x| response_array[x].each { |k, v| filtered_url.push(v) if k == 'img_src' } }
+    middle_html = []
+    (response_array.length).times { |x| response_array[x].each { |k, v| middle_html.push(v) if k == 'img_src' } }
 
     final_html = ["<html>","<head>", "</head>", "<body>", "<ul>"]
     bottom_html = ["</ul>", "</body>", "</html>"]
-    middle_html = filtered_url.sample(photos) #Recordar que el máximo de fotos es 856, y este método nos da una cantidad X al azar. 
+    
     (middle_html.length).times { |y| final_html.push("\t<li><img src=\"#{middle_html[y]}\" width='700' height='500'></li>")}
     (bottom_html.length).times { |z| final_html.push(bottom_html[z]) }
 
@@ -66,9 +62,9 @@ def photo_count(hash)
 end
 
 
-response_hash = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
+response_hash = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL&page=1")
 
-build_web_page(response_hash, 5) #la página se creará con 5 fotos.
+build_web_page(response_hash)
 
 
 photo_count(response_hash)
