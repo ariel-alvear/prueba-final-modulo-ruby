@@ -1,9 +1,11 @@
+require 'uri'
+require 'net/http'
+require 'openssl'
+require 'json'
+
+
 #A este método le agregamos una url de api y una api_key, las concatena y nos da la respuesta de una request.
 def request(url, key)
-    require 'uri'
-    require 'net/http'
-    require 'openssl'
-    require 'json'
     url_with_key = url + key
 
     url_api = URI(url_with_key)
