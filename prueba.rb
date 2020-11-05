@@ -1,5 +1,5 @@
 #A este método le agregamos una url de api y una api_key, las concatena y nos da la respuesta de una request.
-def concatenate_url_key(url, key)
+def request(url, key)
     require 'uri'
     require 'net/http'
     require 'openssl'
@@ -66,7 +66,7 @@ def photo_count(hash)
 end
 
 
-response_hash = concatenate_url_key("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
+response_hash = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=", "icwWBO3w7LZOFTFwt4HheCVdRpPzlqacMxZDYyOL")
 
 build_web_page(response_hash, 5) #la página se creará con 5 fotos.
 
